@@ -1,0 +1,114 @@
+size = 10
+x = 5
+y = 5
+
+cs="██"
+bs="*"
+blocks=bs
+abg=blocks
+b4=abg
+ramka = [
+    (0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0), (8, 0), (9, 0),
+    (0, 9), (1, 9), (2, 9), (3, 9), (4, 9), (5, 9), (6, 9), (7, 9), (8, 9), (9, 9),
+    (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8),
+    (9, 1), (9, 2), (9, 3), (9, 4), (9, 5), (9, 6), (9, 7), (9, 8)
+]
+print("""
+   
+   ###---f
+  #####
+e--###""")
+while True:
+ b=input()
+ if b=="brick":
+    x = int(input())  
+    y = int(input())  
+    bs = input()
+    blocks = bs
+
+     
+ if b=="size":
+     size=int(input())
+     cs=input()
+ if b=="test":
+  while True:
+    for row in range(size):
+        for col in range(size):
+            drawn=False
+            for block in blocks:
+                if block[0]==col and block[1]==row:
+                    print(block[2],end="")
+                    drawn=True
+                    break
+            if not drawn:
+                if row==y and col==x:
+                    print(blocks,end="")
+                else:
+                    print(cs,end="")
+        print()
+    
+    move=input()
+    
+    if move=="s" and y>0:
+        y-=1
+    if move=="w" and y<size-1:
+        y+=1
+    if move=="d" and x>0:
+        x-=1
+    if move=="a" and x<size-1:
+        x+=1
+    if (x,y) in ramka:
+     blocks = "██"
+    else :
+        blocks=bs
+ if b=="export":
+     ag=input() 
+     with open(ag+"ef","w+") as f:
+         f.write(str(size)+","+str(x)+","+str(y)+","+cs+","+b4+"\n")
+         for block in blocks:
+             f.write(str(block[0])+","+str(block[1])+","+block[2]+"\n")
+ if b=="import":
+     ags=input()
+     with open(ags,"r") as f:
+         lines=f.readlines()
+         data=lines[0].strip().split(",")
+         size=int(data[0])
+         x=int(data[1])
+         y=int(data[2])
+         cs=data[3]
+         b4=data[4]
+         blocks=[]
+         for line in lines[1:]:
+             if line.strip():
+                 bd=line.strip().split(",")
+                 blocks.append([int(bd[0]),int(bd[1]),bd[2]])
+         while True:
+          for row in range(size):
+           for col in range(size):
+            drawn=False
+            for block in blocks:
+             if block[0]==col and block[1]==row:
+                 print(block[2],end="")
+                 drawn=True
+                 break
+            if not drawn:
+             if row==y and col==x:
+                 print(b4,end="")
+             else:
+                 print(cs,end="")
+           print()
+    
+          move=input()
+    
+          if move=="s" and y>0:
+            y-=1
+          if move=="w" and y<size-1:
+            y+=1
+          if move=="d" and x>0:
+            x-=1
+          if move=="a" and x<size-1:
+            x+=1
+          if (x,y) in ramka:
+             blocks = "██"
+          else :
+           blocks=bs
